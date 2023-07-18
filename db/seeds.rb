@@ -27,19 +27,29 @@ puts "Seeding users..."
   p user.errors.full_messages unless user.save
   # tweet = Tweet.create(body: Faker::Quote.unique.famous_last_words, user_id: user.id)
 end
-puts "Seeding of 5 users."
-# puts "Seeding replies..."
-# Tweet.all.each do |tweet|
-#   users = User.all.to_a
-#   users.each do |user|
-#     reply = Tweet.create(body: Faker::Quote.unique.famous_last_words, user_id: user.id)
-#     tweet.replies.push(reply)
-#   end
-# end
-# puts "Seeding of replies completed."
-# User.all.each do |user|
-#     liked_tweets = Tweet.all.sample(4)
-#     liked_tweets.each do |tweet|
-#       Like.create(user_id: user.id, tweet_id: tweet.id)
-#     end
-# end
+puts "Seeding of 5 properties"
+
+ User.all.each do |user1|
+   if user1.type_user == "Landlord"
+    2.times do |index|
+
+      property = Property.new(operation_type:"#{index.even? ? "Rent" : "Sale"}",
+                              location: Faker::Address.full_address,
+                              price: rand(500..1500),
+                              property_type:"#{index.even? ? "House" : "Aparment"}",
+                              maintanance: rand(100..300),
+                              bathroom: Faker::Number.number(digits:1),
+                              petfriendly: Faker::Boolean.boolean,
+                              bedroom:Faker::Number.number(digits:1),
+                              area: Faker::Number.number(digits:3),
+                              description: Faker::Lorem.sentence(word_count: 10),
+                              user_id: user1.id
+      )
+      p property.errors.full_messages unless property.save
+
+    end
+   end
+
+ end
+
+puts "Properties created"
