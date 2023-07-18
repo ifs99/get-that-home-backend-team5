@@ -53,3 +53,18 @@ puts "Seeding of 5 properties"
  end
 
 puts "Properties created"
+
+puts "Seeding interactions..."
+
+5.times do |index|
+  interaction = Interaction.new(user_id: User.where(id: User.ids.sample).ids[0],
+                                property_id: Property.where(id: Property.ids.sample).ids[0],
+                                favorite: Faker::Boolean.boolean,
+                                contacted: Faker::Boolean.boolean,
+                                actived: Faker::Boolean.boolean,
+                                closed: Faker::Boolean.boolean
+                                )
+  p interaction.errors.full_messages unless interaction.save
+end
+
+puts "Interactions created"
