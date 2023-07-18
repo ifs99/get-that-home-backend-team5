@@ -1,0 +1,72 @@
+<%= form_with(model: property) do |form| %>
+  <% if property.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+
+      <ul>
+        <% property.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :operation_type, style: "display: block" %>
+    <%= form.text_field :operation_type %>
+  </div>
+
+  <div>
+    <%= form.label :location, style: "display: block" %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div>
+    <%= form.label :price, style: "display: block" %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div>
+    <%= form.label :property_type, style: "display: block" %>
+    <%= form.text_field :property_type %>
+  </div>
+
+  <div>
+    <%= form.label :maintanance, style: "display: block" %>
+    <%= form.number_field :maintanance %>
+  </div>
+
+  <div>
+    <%= form.label :bathroom, style: "display: block" %>
+    <%= form.number_field :bathroom %>
+  </div>
+
+  <div>
+    <%= form.label :petfriendly, style: "display: block" %>
+    <%= form.check_box :petfriendly %>
+  </div>
+
+  <div>
+    <%= form.label :bedroom, style: "display: block" %>
+    <%= form.number_field :bedroom %>
+  </div>
+
+  <div>
+    <%= form.label :area, style: "display: block" %>
+    <%= form.number_field :area %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

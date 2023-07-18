@@ -1,0 +1,47 @@
+<%= form_with(model: interaction) do |form| %>
+  <% if interaction.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(interaction.errors.count, "error") %> prohibited this interaction from being saved:</h2>
+
+      <ul>
+        <% interaction.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :favorite, style: "display: block" %>
+    <%= form.check_box :favorite %>
+  </div>
+
+  <div>
+    <%= form.label :contacted, style: "display: block" %>
+    <%= form.check_box :contacted %>
+  </div>
+
+  <div>
+    <%= form.label :property_id, style: "display: block" %>
+    <%= form.text_field :property_id %>
+  </div>
+
+  <div>
+    <%= form.label :user_id, style: "display: block" %>
+    <%= form.text_field :user_id %>
+  </div>
+
+  <div>
+    <%= form.label :actived, style: "display: block" %>
+    <%= form.check_box :actived %>
+  </div>
+
+  <div>
+    <%= form.label :closed, style: "display: block" %>
+    <%= form.check_box :closed %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
