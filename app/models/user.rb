@@ -8,5 +8,6 @@ class User < ApplicationRecord
   has_many :properties
   has_many :interactions
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
+         :recoverable, :rememberable, :validatable,
+         :token_authenticatable
 end

@@ -27,6 +27,9 @@ puts "Seeding users..."
   p user.errors.full_messages unless user.save
   # tweet = Tweet.create(body: Faker::Quote.unique.famous_last_words, user_id: user.id)
 end
+puts "Seeding user general..."
+user1 = User.new(email:"code@able.com",name:"Rossi",password:"123456MERe3",phone:"98764353",type_user:"Landlord")
+p user1.errors.full_messages unless user1.save
 puts "Seeding of 5 properties"
 
  User.all.each do |user1|

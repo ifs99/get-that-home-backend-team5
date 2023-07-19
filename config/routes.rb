@@ -11,4 +11,9 @@ Rails.application.routes.draw do
   namespace :api do
     resources :properties, only: %i[index show]
   end
+  namespace :api do
+      devise_for :users, controllers: {
+        sessions: 'api/sessions' # Controlador personalizado para sesiones
+      }
+  end
 end
