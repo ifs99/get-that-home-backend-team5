@@ -50,6 +50,8 @@ gem "bootsnap", require: false
 
 gem 'devise'
 gem 'faker'
+gem 'devise-token_authenticatable'
+
 
 
 group :development, :test do
