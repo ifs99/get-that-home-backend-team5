@@ -46,7 +46,6 @@ puts "Seeding of 5 properties"
                               user_id: user1.id
       )
       p property.errors.full_messages unless property.save
-
     end
    end
 
