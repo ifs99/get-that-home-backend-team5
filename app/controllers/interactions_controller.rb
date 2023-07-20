@@ -1,70 +1,53 @@
 class InteractionsController < ApplicationController
-  before_action :set_interaction, only: %i[ show edit update destroy ]
+  before_action :require_login!, only: %i[ update]
 
-  # GET /interactions or /interactions.json
-  def index
-    @interactions = Interaction.all
+  def index_favorite
+  interactions = current_user.interactions.where(favorite:true)
+    render json: interactions
   end
 
-  # GET /interactions/1 or /interactions/1.json
-  def show
-  end
+  def create_favorite
+   property = Property.find(params[:id])
+   interaction = current_user.interactions.new(property_id: property.id, favorite:true)
 
-  # GET /interactions/new
-  def new
-    @interaction = Interaction.new
-  end
-
-  # GET /interactions/1/edit
-  def edit
-  end
-
-  # POST /interactions or /interactions.json
-  def create
-    @interaction = Interaction.new(interaction_params)
-
-    respond_to do |format|
-      if @interaction.save
-        format.html { redirect_to interaction_url(@interaction), notice: "Interaction was successfully created." }
-        format.json { render :show, status: :created, location: @interaction }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @interaction.errors, status: :unprocessable_entity }
-      end
+    if interaction.save
+     render json: interaction, status: :created
+    else
+     render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /interactions/1 or /interactions/1.json
-  def update
-    respond_to do |format|
-      if @interaction.update(interaction_params)
-        format.html { redirect_to interaction_url(@interaction), notice: "Interaction was successfully updated." }
-        format.json { render :show, status: :ok, location: @interaction }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @interaction.errors, status: :unprocessable_entity }
-      end
+  def update_favorite
+    property = Property.find(params[:id])
+    interaction = current_user.interactions.find_by(property_id: property.id)
+
+    if interaction.update(favorite:false)
+      render json: interaction
+    else
+      render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  # DELETE /interactions/1 or /interactions/1.json
-  def destroy
-    @interaction.destroy
+  def index_contacted
+    interactions = current_user.interactions.where(contacted:true)
+    render json: interactions
+  end
 
-    respond_to do |format|
-      format.html { redirect_to interactions_url, notice: "Interaction was successfully destroyed." }
-      format.json { head :no_content }
+  def create_contacted
+   property = Property.find(params[:id])
+   interaction = current_user.interactions.new(property_id: property.id, contacted:true)
+
+    if interaction.save
+     render json: interaction, status: :created
+    else
+     render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
     end
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_interaction
-      @interaction = Interaction.find(params[:id])
-    end
-
-    # Only allow a list of trusted parameters through.
-    def interaction_params
-      params.require(:interaction).permit(:favorite, :contacted, :property_id, :user_id, :actived, :closed)
-    end
 end
+
+
+
+
+  
+
