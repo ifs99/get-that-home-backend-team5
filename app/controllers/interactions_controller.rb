@@ -44,6 +44,32 @@ class InteractionsController < ApplicationController
     end
   end
 
+  def index_actived
+    interactions = current_user.interactions.where.where(actived: true)
+    render json: interactions
+  end
+
+  def update_actived
+    property = Property.find(params[:id])
+    interaction = current_user.interactions.find_by(property_id: property.id)
+    puts "hola"
+    puts interaction_params
+    if interaction.update(interaction_params)
+      render json: interaction
+    else
+      render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def index_closed
+    interactions = current_user.interactions.where(closed: true)
+    render json: interactions
+  end
+private 
+  def interaction_params
+    params.require(:interaction).permit(:actived, :closed)
+  end
+
 end
 
 
