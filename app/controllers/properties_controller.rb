@@ -13,8 +13,10 @@ class PropertiesController < ApplicationController
   def create
     
     new_property = current_user.properties.new(property_params)
+    interaction1 = new_property.interactions.new(actived: true,user_id: current_user.id)
 
     if new_property.save
+      interaction1.save
       render json: new_property, status: :created
     else
       render json: new_property.errors, status: :unprocessable_entity
