@@ -51,6 +51,7 @@ gem "bootsnap", require: false
 # gem 'devise'
 gem 'faker'
 gem 'bcrypt'
+gem 'rack-cors'
 # gem 'devise-token_authenticatable'
 
 

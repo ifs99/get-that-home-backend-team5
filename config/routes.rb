@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
-  resources :interactions
+
   resources :properties
   resources :users
+  resources :properties do
+    resources :interactions, only: [:create]
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

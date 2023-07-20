@@ -1,6 +1,7 @@
 class InteractionsController < ApplicationController
   before_action :require_login!, only: %i[ update]
 
+
   def index_favorite
   interactions = current_user.interactions.where(favorite:true)
     render json: interactions
