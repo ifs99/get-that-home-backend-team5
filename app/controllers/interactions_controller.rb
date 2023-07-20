@@ -26,7 +26,6 @@ class InteractionsController < ApplicationController
     else
       render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
     end
-
   end
 
   def index_contacted
