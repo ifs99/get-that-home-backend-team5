@@ -18,4 +18,10 @@ Rails.application.routes.draw do
 
   post '/contacted/:id' => 'interactions#create_contacted'
   get '/contacted' => 'interactions#index_contacted'
+
+  get '/actived' => 'interactions#index_actived'
+  patch  '/actived/:id' => 'interactions#update_actived'
+
+  get '/closed' => 'interactions#index_closed'
+
 end
