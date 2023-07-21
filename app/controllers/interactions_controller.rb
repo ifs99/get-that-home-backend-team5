@@ -4,7 +4,11 @@ class InteractionsController < ApplicationController
 
   def index_favorite
   interactions = current_user.interactions.where(favorite:true)
-    render json: interactions
+
+    properties = interactions.map do |interaction|
+      Property.find_by(id: interaction.property_id)
+    end
+    render json: properties
   end
 
   def create_favorite
@@ -39,7 +43,10 @@ class InteractionsController < ApplicationController
 
   def index_contacted
     interactions = current_user.interactions.where(contacted:true)
-    render json: interactions
+    properties = interactions.map do |interaction|
+      Property.find_by(id: interaction.property_id)
+    end
+    render json: properties
   end
 
   def create_contacted
