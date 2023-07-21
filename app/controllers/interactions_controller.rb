@@ -46,7 +46,7 @@ class InteractionsController < ApplicationController
   end
 
   def index_actived
-    interactions = current_user.interactions.where.where(actived: true)
+    interactions = current_user.interactions.where(actived: true)
     render json: interactions
   end
 
