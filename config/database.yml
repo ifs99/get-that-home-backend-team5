@@ -81,6 +81,9 @@ test:
 #
 production:
   <<: *default
-  database: get_that_home_backend_team5_production
-  username: get_that_home_backend_team5
-  password: <%= ENV["GET_THAT_HOME_BACKEND_TEAM5_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>
+  host: <%= ENV["PGHOST"] %>
+  database: <%= ENV["PGDATABASE"] %>
+  username: <%= ENV["PGUSER"] %>
+  password: <%= ENV["PGPASSWORD"] %>
+  port: <%= ENV["PGPORT"] %>
