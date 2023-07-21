@@ -29,6 +29,14 @@ class InteractionsController < ApplicationController
     end
   end
 
+  def delete_favorite
+    property = Property.find(params[:id])
+    interaction = current_user.interactions.find_by(property_id: property.id)
+    interaction.destroy
+  end
+
+
+
   def index_contacted
     interactions = current_user.interactions.where(contacted:true)
     render json: interactions
@@ -61,6 +69,14 @@ class InteractionsController < ApplicationController
       render json: { errors: interaction.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  def delete_actived
+    property = Property.find(params[:id])
+    interaction = current_user.interactions.find_by(property_id: property.id)
+    interaction.destroy
+  end
+
+
 
   def index_closed
     interactions = current_user.interactions.where(closed: true)
