@@ -5,7 +5,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
- 
   def create
     user = User.new(user_params)
 
@@ -17,7 +16,10 @@ class UsersController < ApplicationController
 
   end
 
-  
+  def show
+    render json: current_user
+  end
+
     def user_params
       params.permit(:email, :name, :password, :type_user, :phone, :created_at, :updated_at, :token)
     end

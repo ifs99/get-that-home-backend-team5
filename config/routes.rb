@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post    '/login'    => 'sessions#create'
   delete  '/logout'   => 'sessions#destroy'
   post    '/signup'   => 'users#create'
+  get     '/profile'  => 'users#show'
 
   post    '/favorites/:id'   => 'interactions#create_favorite'
   patch    '/favorites/:id'   => 'interactions#update_favorite'
