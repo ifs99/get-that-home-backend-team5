@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   patch    '/favorites/:id'   => 'interactions#update_favorite'
   get   '/favorites'   => 'interactions#index_favorite'
   delete '/favorites/:id'  => 'interactions#delete_favorite'
+  
 
   post '/contacted/:id' => 'interactions#create_contacted'
   get '/contacted' => 'interactions#index_contacted'
