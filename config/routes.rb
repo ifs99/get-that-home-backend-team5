@@ -14,6 +14,9 @@ Rails.application.routes.draw do
   post    '/signup'   => 'users#create'
   get     '/profile'  => 'users#show'
 
+  get   '/users/properties'   => 'properties#show_properties_actived'
+
+
   post    '/favorites/:id'   => 'interactions#create_favorite'
   patch    '/favorites/:id'   => 'interactions#update_favorite'
   get   '/favorites'   => 'interactions#index_favorite'
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
   get '/actived' => 'interactions#index_actived'
   patch  '/actived/:id' => 'interactions#update_actived'
   delete '/actived/:id'  => 'interactions#delete_favorite'
+  get   '/users/properties'   => 'interactions#show_properties_actived'
 
   get '/closed' => 'interactions#index_closed'
   

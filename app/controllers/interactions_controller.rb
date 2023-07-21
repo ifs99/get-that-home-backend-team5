@@ -55,7 +55,10 @@ class InteractionsController < ApplicationController
 
   def index_actived
     interactions = current_user.interactions.where(actived: true)
-    render json: interactions
+    properties = interactions.map do |interaction|
+      Property.find_by(id: interaction.property_id)
+     end
+    render json: properties
   end
 
   def update_actived
@@ -80,7 +83,11 @@ class InteractionsController < ApplicationController
 
   def index_closed
     interactions = current_user.interactions.where(closed: true)
-    render json: interactions
+
+    properties = interactions.map do |interaction|
+      Property.find_by(id: interaction.property_id)
+     end
+    render json: properties
   end
 private 
   def interaction_params
