@@ -10,6 +10,13 @@ class PropertiesController < ApplicationController
 
   end
 
+  def show_user_properties_actived
+    interactions = current_user.interactions.where(actived: true)
+    render json: interactions
+  end
+
+
+
   def create
     
     new_property = current_user.properties.new(property_params)
