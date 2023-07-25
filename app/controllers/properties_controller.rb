@@ -4,21 +4,12 @@ class PropertiesController < ApplicationController
 
   # GET /properties or /properties.json
   def index
-    puts "current_userrrr"
-    puts current_user
     render json: Property.all
 
   end
 
-  def show_user_properties_actived
-    interactions = current_user.interactions.where(actived: true)
-    render json: interactions
-  end
-
-
-
+  # POST /properties -> create property
   def create
-    
     new_property = current_user.properties.new(property_params)
     interaction1 = new_property.interactions.new(actived: true,user_id: current_user.id)
 
@@ -31,23 +22,53 @@ class PropertiesController < ApplicationController
     
   end
 
-  def show
-    property1 = Property.find(params[:id])
-    render json: property1
-  end
 
-  def update
-    property1 = Property.find(params[:id])
-    if property1.update(property_params)
+  # GET /properties/id -> property id
+  def show
+    begin
+      property1 = Property.find(params[:id])
       render json: property1
-    else
-      render json: property1.errors, status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Property with ID=#{params[:id]} not found" }, status: :not_found
     end
   end
 
+  # PATCH /properties/id -> property id
+  def update
+    begin
+      property1 = Property.find(params[:id])
+      if property1.update(property_params)
+        render json: property1
+      else
+        render json: property1.errors, status: :unprocessable_entity
+      end
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Property with ID=#{params[:id]} not found" }, status: :not_found
+    end
+  end
+
+  # def update
+  #   property1 = Property.find(params[:id])
+  #   if current_user.properties.ids.include?(params[:id].to_i) && property1.update(property_params)
+  #     render json: property1
+  #   else
+  #     if !current_user.properties.ids.include?(params[:id].to_i) 
+  #       render json: {"error": "The property does not belong to the current user"}
+  #     else
+  #       render json: property1.errors, status: :unprocessable_entity
+  #     end
+  #   end
+  # end
+
+  #DELETE /properties/id -> property id
   def destroy
-    property1 = Property.find(params[:id])
-    property1.destroy
+    begin
+      property1 = Property.find(params[:id])
+      property1.interactions.destroy_all
+      property1.destroy
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: "Property with ID=#{params[:id]} not found" }, status: :not_found
+    end
   end
 
   private

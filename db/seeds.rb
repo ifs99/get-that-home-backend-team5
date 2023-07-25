@@ -17,7 +17,7 @@ ActiveRecord::Base.connection.reset_pk_sequence!('properties')
 ActiveRecord::Base.connection.reset_pk_sequence!('interactions')
 puts "Reseted ids"
 puts "Seeding users..."
-5.times do |index|
+6.times do |index|
     user = User.new(email: "user#{index}@gmail.com",
                   name: Faker::Internet.unique.username(specifier:(1..16)),
                   password: "#{Faker::Internet.password(min_length: 6)}#{rand(1..9)}",
@@ -32,10 +32,11 @@ user1 = User.new(email:"code@able.com",name:"Rossi",password:"123456MERe3",phone
 p user1.errors.full_messages unless user1.save
 puts "Seeding of 5 properties"
 
+k = 0
  User.all.each do |user1|
    if user1.type_user == "Landlord"
     2.times do |index|
-
+      k = k +1
       property = Property.new(operation_type:"#{index.even? ? "Rent" : "Sale"}",
                               location: Faker::Address.full_address,
                               price: rand(500..1500),
@@ -46,7 +47,8 @@ puts "Seeding of 5 properties"
                               bedroom:Faker::Number.number(digits:1),
                               area: Faker::Number.number(digits:3),
                               description: Faker::Lorem.sentence(word_count: 10),
-                              user_id: user1.id
+                              user_id: user1.id,
+                              name_image: ["propiedad#{k}.jpg"]
       )
       p property.errors.full_messages unless property.save
     end
@@ -58,15 +60,20 @@ puts "Properties created"
 
 puts "Seeding interactions..."
 
-5.times do |index|
-  interaction = Interaction.new(user_id: User.where(id: User.ids.sample).ids[0],
+8.times do |index|
+  a = index%2==0? index+1 : index
+  interaction1 = Interaction.new(user_id: a,
+                                property_id: index + 1,
+                                actived: true,
+                                closed: false
+                                )                             
+  interaction2 = Interaction.new(user_id: User.where(id: User.ids.sample).ids[0],
                                 property_id: Property.where(id: Property.ids.sample).ids[0],
                                 favorite: Faker::Boolean.boolean,
-                                contacted: Faker::Boolean.boolean,
-                                actived: Faker::Boolean.boolean,
-                                closed: Faker::Boolean.boolean
+                                contacted: Faker::Boolean.boolean
                                 )
-  p interaction.errors.full_messages unless interaction.save
+  p interaction1.errors.full_messages unless interaction1.save
+  p interaction2.errors.full_messages unless interaction2.save
 end
 
 puts "Interactions created"
