@@ -8,7 +8,7 @@ class InteractionsController < ApplicationController
     properties = interactions.map do |interaction|
       Property.find_by(id: interaction.property_id)
     end
-    render json: properties.uniq!
+    render json: properties
   end
 
   #POST /favorites/:id -> id property
