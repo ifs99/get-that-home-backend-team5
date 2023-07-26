@@ -33,7 +33,7 @@ p user1.errors.full_messages unless user1.save
 puts "Seeding of 5 properties"
 
 k = 0
-array_coordenadas =[['-12.146743','-76.972644'],['-12.138509', '-77.004487'],['-12.136180', '-77.019706'],['-12.113586', '-77.034716']]
+array_coordenadas =[['-12.117979','-77.031427','C. 2 de Mayo 316, Miraflores 15074'],['-12.116426', '-77.038079','Ca. Gral. Miguel Iglesias 300-402, Miraflores 15074'],['-12.114952', '-77.042789','Av. Gral. Córdova 190-294, Miraflores 15073'],['-12.114566', '-77.047011','C. Ignacio Merino 318, Miraflores 15074']]
  User.all.each do |user1|
    if user1.type_user == "Landlord"
     2.times do |index|
