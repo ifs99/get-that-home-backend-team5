@@ -11,6 +11,7 @@ class PropertiesController < ApplicationController
   # POST /properties -> create property
   def create
     new_property = current_user.properties.new(property_params)
+
     interaction1 = new_property.interactions.new(actived: true,user_id: current_user.id)
 
     if new_property.save
@@ -80,6 +81,6 @@ class PropertiesController < ApplicationController
 
   # Only allow a trusted parameter "white list" through.
   def property_params
-    params.require(:property).permit(:operation_type, :location, :price, :property_type, :maintanance,:bathroom,:petfriendly,:bedroom,:area,:description,:name_image)
+    params.require(:property).permit(:operation_type, :location, :price, :property_type, :maintanance,:bathroom,:petfriendly,:bedroom,:area,:description,:name_image => [])
   end
 end
