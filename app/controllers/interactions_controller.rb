@@ -23,6 +23,17 @@ class InteractionsController < ApplicationController
     end
   end
 
+  def show_interaction
+      property = Property.find(params[:id])
+      interaction = current_user.interactions.where(property_id: property.id)
+      if interaction
+       
+        render json: interaction
+      else
+        render json: { error: "Interaction not found" }, status: :not_found
+      end
+  end 
+
   # patch    '/favorites/:id'
 
   def update_favorite
