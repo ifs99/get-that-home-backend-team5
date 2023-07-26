@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :require_login!, only: %i[ show edit create update destroy ]
+  before_action :require_login!, only: %i[ edit create update destroy ]
   # before_action :set_property, only: %i[ show edit update destroy ]
 
   # GET /properties or /properties.json
